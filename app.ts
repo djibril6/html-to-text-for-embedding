@@ -74,9 +74,7 @@ class HTMLParserForEmbedding {
     result.forEach((re) => {
       try {
         output.push(...JSON.parse(re));
-      } catch (error) {
-        console.log(re);
-      }
+      } catch (error) {}
     });
 
     return output;
