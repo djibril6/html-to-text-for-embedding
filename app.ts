@@ -27,12 +27,16 @@ class HTMLParserForEmbedding {
    * @param url the url or the page
    * @returns chunked list
    */
-  loadContent() {
+  loadContent(html?: string) {
     return new Promise<string[]>((resolve, reject) => {
       // Converting the html into markdown instead of text to not loose some contexts provided by the html tags
-      Parser.parse(this.url, {
+      const option = {
         contentType: "markdown",
-      }).then(async (res: any) => {
+      } as any;
+      if (html) {
+        option.html = html;
+      }
+      Parser.parse(this.url, option).then(async (res: any) => {
         const textSplitter = new MarkdownTextSplitter({
           chunkSize: this.chunkSize,
           chunkOverlap: 0,
